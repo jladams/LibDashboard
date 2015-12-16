@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OU Libraries Statistics Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://libraries.ou.edu/sites/default/files/favicon_1.png" type="image/png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<!-- Pie chart sample -->    
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Reference',     11],
+          ['Direction',      2],
+          ['Tech Issues',  2],
+          ['Guest Logins', 2],
+          ['Instruction',    7]
+        ]);
+
+        var options = {
+          title: 'Research Help Desk Interactions'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+<!-- Bar Chart sample -->
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart","bar"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['College', 'Earth Science and Energy', 'Romance', 'Mystery/Crime', 'General',
+         'Western', 'Literature', { role: 'annotation' } ],
+        ['2013', 10, 24, 20, 32, 18, 5, ''],
+        ['2014', 16, 22, 23, 30, 16, 9, ''],
+        ['2015', 28, 19, 29, 30, 12, 13, '']
+      ]);
+
+      var options = {
+        legend: { position: 'top', maxLines: 3 },
+        bar: { groupWidth: '75%' },
+        isStacked: 'percent',
+      };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('circulation_chart'))
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script>
+    google.load("visualization", "1.1", {packages:["gantt"]});
+    google.setOnLoadCallback(drawChart);
+
+      function daysToMilliseconds(days) {
+        return days * 24 * 60 * 60 * 1000;
+      }
+
+    function drawChart() {
+
+      var otherData = new google.visualization.DataTable();
+      otherData.addColumn('string', 'Task ID');
+      otherData.addColumn('string', 'Task Name');
+      otherData.addColumn('string', 'Resource');
+      otherData.addColumn('date', 'Start');
+      otherData.addColumn('date', 'End');
+      otherData.addColumn('number', 'Duration');
+      otherData.addColumn('number', 'Percent Complete');
+      otherData.addColumn('string', 'Dependencies');
+
+      otherData.addRows([
+        ['repository', 'Build Repository', 'repository', new Date(2014, 11, 1), new Date(2015, 4, 5), null,  100,  null],
+        ['ongoing', 'Ongoing Projects', 'ongoing', new Date(2014,10,1), null, daysToMilliseconds(600), 100, null],
+        ['digitization', 'Digitization', 'digitization', new Date(2015,0,1), new Date(2015, 7,15), null, 20, 'repository'],
+        ['GW', "Galileo's World", 'GW', new Date(2015, 7, 15), new Date(2016, 7, 15), null, 30, 'digitization'],
+        ['wrapUp', 'Wrap Up', 'wrapUp', new Date(2016, 7, 15), null, daysToMilliseconds(30), 100, 'GW'],
+        ['nextProj', 'Next Exhibit', 'nextProj', new Date(2016,9,1), new Date(2017,9,1), null, 0, 'wrapUp'],
+
+      ]);
+
+      var options = {
+        gantt: {
+          defaultStartDateMillis: new Date(2015, 3, 28)
+        }
+      };
+
+      var chart = new google.visualization.GanttChart(document.getElementById('ks_chart'));
+
+      chart.draw(otherData, options);
+    }
+    </script>
+</head>
+<body style="background-color: #841617;background-image: none">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span> <span class="icon-bar">
+                    </span> <span class="icon-bar">
+                    </span> 
+                </button>
+                <a class="navbar-brand" href="dashboard.html">Dashboard</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">Library Stats<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="circulation.html">Circulation</a></li>
+                            <li><a href="reference.html">Reference</a></li>
+                            <li><a href="hclc.html">HCLC</a></li>
+                            <li><a href="eic.html">EIC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 content">
+                <h2>Circulation</h2>
+                <div id="circulation_chart"></div>
+                <p><a class="btn btn-default" href="circulation.html" role="button">View more &raquo;</a></p>
+            </div>
+            <div class="col-md-5 content">
+                <h2>Reference</h2>
+                <div id="piechart" style="width: 100%; height: 100%;"></div>
+                <p><a class="btn btn-default" href="reference.html" role="button">View more &raquo;</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5 content">
+                <h2>HCLC</h2>
+                <p><a class="btn btn-default" href="hclc.html" role="button">View more &raquo;</a></p>
+            </div>
+            <div class="col-md-5 content">
+                <h2>Electronic Information Center</h2>
+                <p><a class="btn btn-default" href="eic.html" role="button">View more &raquo;</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-11 content">
+                <h2>Knowledge Services Projects</h2>
+                <div id="ks_chart" class="hidden-xs" style="width: 100%; height: 300px;"></div>
+                <p><a class="btn btn-default" href="hclc.html" role="button">View more &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>
